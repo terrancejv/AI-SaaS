@@ -26,13 +26,13 @@ const routes = [
     color: "text-sky-500",
   },
   {
-    label: "Conversation",
+    label: "Text Generation",
     icon: MessageSquare,
     href: "/conversation",
     color: "text-violet-500",
   },
   {
-    label: "Image Generator",
+    label: "Image Generation",
     icon: ImageIcon,
     href: "/image",
     color: "text-pink-700",
