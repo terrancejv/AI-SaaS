@@ -3,7 +3,7 @@
 import axios from "axios";
 import * as z from "zod";
 import { Heading } from "@/components/heading";
-import { MessageSquare, Music } from "lucide-react";
+import { Music } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { formSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,15 +16,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { useState } from "react";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
-import { UserAvatar } from "@/components/user-avatar";
-import { BotAvatar } from "@/components/bot-avatar";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 
 const MusicPage = () => {
+  const proModal = useProModal();
   const router = useRouter();
   const [music, setMusic] = useState<string>();
 
@@ -46,7 +45,9 @@ const MusicPage = () => {
       setMusic(response.data.audio);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }
