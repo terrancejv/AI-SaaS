@@ -22,7 +22,7 @@ export async function GET() {
       }
     });
 
-    if (userSubscription && userSubscription?.stripeCustomerId) {
+    if (userSubscription && userSubscription.stripeCustomerId) {
       const stripeSession = await stripe.billingPortal.sessions.create({
         customer: userSubscription.stripeCustomerId,
         return_url: settingsUrl,
